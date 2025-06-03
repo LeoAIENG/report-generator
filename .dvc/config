@@ -1,0 +1,5 @@
+[core]
+    remote = client-credit-union
+    autostage = true
+['remote "client-credit-union"']
+    url = s3://dataset-versioning/client-credit-union
