@@ -187,3 +187,7 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+.env
+
+*secret*
