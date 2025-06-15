@@ -81,4 +81,4 @@ def preprocess(loan_json_path, credit_excel_path):
 	merged = pd.merge(merged, officer_amount_map, on='Normalized Name', how='left')
 	merged['Loan Amount'] = merged['Loan Amount'].fillna(0).astype(float)
 
-	return merged
+	return merged, closed_loans

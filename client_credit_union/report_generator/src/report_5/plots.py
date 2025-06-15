@@ -118,7 +118,7 @@ def generate_product_type_summary_table(df, title_prefix, image_path, prefix, sh
   table.scale(1.5, 1.8)
 
   plt.subplots_adjust(top=0.85)
-  ax.text(0.5, 0.80, f"{title_prefix} Closed Loan Product Type Distribution by Branch Processor",
+  ax.text(0.5, 0.85, f"{title_prefix} Closed Loan Product Type Distribution by Branch Processor",
           ha='center', va='bottom', fontsize=13, weight='bold', transform=ax.transAxes)
   if show_plots:
     plt.show()

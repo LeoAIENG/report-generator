@@ -10,7 +10,7 @@ from .plots import (
 import config as cfg
 from .context import get_template_context
  
-def gen_images_report_3(images_path, merged_df, report_prefix, time_label):
+def gen_images_report(images_path, merged_df, report_prefix, time_label):
 	loan_officer_by_efficiency_table, closed_pulls_table, closed_pulls_by_branch_table = get_graph_tables(merged_df)
 	plot_loan_officer_by_efficiency(
 		table=loan_officer_by_efficiency_table,
@@ -42,13 +42,14 @@ def remove_images(images_path):
 	for path in sorted((images_path).glob("*")):
 		path.unlink()
 
-def gen_docx_report(report_prefix, doc_template_path, appendix_template_path, images_path, output_path, merged_df, loan_df, month_label, year_label, show_appendix=True):
+def gen_docx_report(report_prefix, doc_template_path, appendix_template_path, images_path, output_path, merged_df, loan_df, closed_loans, month_label, year_label, show_appendix=True):
 	tpl = DocxTemplate(doc_template_path)
 	appendix_sd = tpl.new_subdoc(appendix_template_path) if show_appendix else None
 	context = get_template_context(
 		report_prefix=report_prefix,
 		merged_df=merged_df,
 		loan_df=loan_df,
+		closed_loans=closed_loans,
 		images_path=images_path,
 		tpl=tpl,
 		appendix_sd=appendix_sd,
@@ -63,18 +64,18 @@ def gen_docx_report(report_prefix, doc_template_path, appendix_template_path, im
 	return output_path
 
 def run(report_prefix, month_label, year_label, show_appendix):
-	report_paths = get_report_paths(report_prefix)
-	time_label = cfg.app.time_label.format(
+	report_paths = get_report_paths(report_prefix, month_label, year_label)
+	time_label = cfg.report.time_label.format(
         month_label=month_label,
         year_label=year_label
     )
-	merged_df = preprocess(
+	merged_df, closed_loans = preprocess(
 		loan_json_path=report_paths["loan_json_path"],
 		credit_excel_path=report_paths["credit_excel_path"]
 	)
 	loan_df = loan_df_from_records(report_paths["loan_json_path"])
 	
-	gen_images_report_3(
+	gen_images_report(
 		images_path=report_paths["images_path"],
 		merged_df=merged_df,
 		report_prefix=report_prefix,
@@ -88,6 +89,7 @@ def run(report_prefix, month_label, year_label, show_appendix):
 		output_path=report_paths["output_path"],
 		merged_df=merged_df,
 		loan_df=loan_df,
+		closed_loans=closed_loans,
 		month_label=month_label,
 		year_label=year_label,
 		show_appendix=show_appendix

@@ -1,4 +1,4 @@
-from docxtpl import DocxTemplate, InlineImage
+from docxtpl import DocxTemplate
 from src.utils import get_report_paths
 from .preprocess import preprocess
 from .plots import (
@@ -11,7 +11,7 @@ from .plots import (
 import config as cfg
 from .context import get_template_context
  
-def gen_images_report_4(report_prefix, closed_df, images_path, time_label):
+def gen_images_report(report_prefix, closed_df, images_path, time_label):
 	plot_closed_loan_volume(
 		df=closed_df,
 		title_prefix=time_label,
@@ -72,8 +72,8 @@ def gen_docx_report(report_prefix, doc_template_path, appendix_template_path, im
 	return output_path
 
 def run(report_prefix, month_label, year_label, show_appendix):
-	report_paths = get_report_paths(report_prefix)
-	time_label = cfg.app.time_label.format(
+	report_paths = get_report_paths(report_prefix, month_label, year_label)
+	time_label = cfg.report.time_label.format(
         month_label=month_label,
         year_label=year_label
     )
@@ -81,7 +81,7 @@ def run(report_prefix, month_label, year_label, show_appendix):
 		loan_json_path=report_paths["loan_json_path"]
 	)
 	
-	gen_images_report_4(
+	gen_images_report(
 		images_path=report_paths["images_path"],
 		closed_df=closed_df,
 		report_prefix=report_prefix,

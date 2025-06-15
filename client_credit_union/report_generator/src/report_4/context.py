@@ -3,6 +3,7 @@ from datetime import datetime
 from docxtpl import InlineImage
 import config as cfg
 import pandas as pd
+
 def add_images_context(images_path, report_prefix, tpl, context):
 	for path in images_path.glob("*.png"):
 		context_img = f"{path.stem}_img"
@@ -44,16 +45,19 @@ def get_template_context(report_prefix, closed_df, tpl, images_path, appendix_sd
 
 	# Report Date
 	cl_report_m = datetime.now().strftime("%B")
-	cl_report_d = datetime.now().strftime("%-d")
+	cl_report_d = "1"
 	cl_report_yr = datetime.now().strftime("%Y")
+
+	report_n = getattr(cfg.report.report_n, report_prefix)
+	report_v = getattr(cfg.report.report_v, report_prefix)
 
 	context = {
 		'appendix_sd': appendix_sd,
 		'cl_fund_m' : month_label,
 		'cl_fund_yr' : year_label,
 		'cl_qtd' : cl_qtd,
-		'cl_report_num': cfg.app.report_n.report_4,
-		'cl_report_v': cfg.app.report_v,
+		'cl_report_num': report_n,
+		'cl_report_v': report_v,
 		'cl_report_m' : cl_report_m,
 		'cl_report_d' : cl_report_d,
 		'cl_report_yr' : cl_report_yr,

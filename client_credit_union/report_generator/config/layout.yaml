@@ -1,0 +1,76 @@
+report_1:
+  report_name: "report_1"
+  status_label: "Closed"
+  images:
+    full_width_imgs:
+      - "final_table_closed_banked_retail_img"
+      - "final_table_closed_banked_wholesale_img"
+      - "final_table_closed_brokered_img"
+      - "pareto_loan_officer_closed_img"
+      - "volume_by_branch_closed_img"
+      - "volume_by_state_closed_img"
+    half_width_imgs:
+      - "final_chart_closed_banked_retail_img"
+      - "final_chart_closed_banked_wholesale_img"
+      - "final_chart_closed_brokered_img"
+      - "pareto_loan_officer_closed_img"
+    custom_width_imgs:
+report_2:
+  report_name: "report_2"
+  status_label: "Active"
+  images:
+    full_width_imgs:
+      - "final_table_active_banked_retail_img"
+      - "final_table_active_banked_wholesale_img"
+      - "final_table_active_brokered_img"
+      - "pareto_loan_officer_active_img"
+      - "volume_by_branch_active_img"
+      - "volume_by_state_active_img"
+    half_width_imgs:
+      - "final_chart_active_banked_retail_img"
+      - "final_chart_active_banked_wholesale_img"
+      - "final_chart_active_brokered_img"
+    custom_width_imgs:
+      - "projected_closings_active_img"
+report_3:
+  report_name: "report_3"
+  images:
+    full_width_imgs:
+      - "report_3_closed_pulls_by_branch_img"
+      - "report_3_closed_pulls_top30_img"
+      - "report_3_loan_officer_by_efficiency_top30_img"
+    half_width_imgs:
+      -
+    custom_width_imgs:
+      -
+report_4:
+  report_name: "report_4"
+  images:
+    full_width_imgs:
+      - "report_4_closed_loan_volume_img"
+      - "report_4_avg_days_to_close_img"
+      - "report_4_loans_missing_submittal_img"
+      - "report_4_product_type_summary_table_img"
+    half_width_imgs:
+      -
+    custom_width_imgs:
+      - "report_4_product_type_distribution_img"
+report_5:
+  report_name: "report_5"
+  images:
+    full_width_imgs:
+      - "report_5_closed_loan_volume_img"
+      - "report_5_avg_days_to_close_img"
+      - "report_5_loans_missing_submittal_img"
+      - "report_5_product_type_summary_table_img"
+    half_width_imgs:
+      -
+    custom_width_imgs:
+      - "report_5_product_type_distribution_img"
+metrics:
+  half: 3.00
+  full: 6.20
+  custom:
+    projected_closings_active_img: 4.00
+    report_4_product_type_distribution_img: 4.80
+    report_5_product_type_distribution_img: 4.80

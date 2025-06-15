@@ -16,12 +16,17 @@ def add_images_context(images_path, report_prefix, tpl, context):
 		context[context_img] = InlineImage(tpl=tpl, image_descriptor=path.as_posix(), width=width)
 	return context
 
-def get_template_context(report_prefix, merged_df, loan_df, tpl, images_path, appendix_sd=None, show_appendix=True, month_label=None, year_label=None):
+def get_template_context(report_prefix, merged_df, loan_df, closed_loans, tpl, images_path, appendix_sd=None, show_appendix=True, month_label=None, year_label=None):
 	# Quantity of Loans
-	cl_qtd = len(loan_df)
+	closed_loans_f = [i for i in closed_loans if i['folder'] == "Closed 2025"]
+	cl_qtd = len(closed_loans_f)
+
 	
 	# Quantity of Closed Loans and Credit Pulls
-	cl_cleared_qtd = merged_df["Closed Loans"].sum()
+	#  loans with "fields.Log.MS.Date.Clear to Close" ≠ "//", empty or null
+	cl_cleared_qtd = [i for i in closed_loans_f if i['fields']['Log.MS.Date.Clear to Close'] not in ["//", "", None]]
+	cl_cleared_qtd = len(cl_cleared_qtd)
+
 	cl_cred_pulls_qtd = merged_df["Credit Pulls"].sum()
 	
 	# Min and Max Close Rate
@@ -36,12 +41,15 @@ def get_template_context(report_prefix, merged_df, loan_df, tpl, images_path, ap
 
 	# Report Date
 	cl_report_m = datetime.now().strftime("%B")
-	cl_report_d = datetime.now().strftime("%-d")
+	cl_report_d = "1"
 	cl_report_yr = datetime.now().strftime("%Y")
 	
 	# TODO:
-	cl_sent_branch_qtd = 8
-
+	cl_sent_branch_qtd = [i for i in closed_loans_f if i['fields']['Log.MS.Date.Sent to Branch LP'] not in ["//", "", None]]
+	cl_sent_branch_qtd = len(cl_sent_branch_qtd)
+	report_n = getattr(cfg.report.report_n, report_prefix)
+	report_v = getattr(cfg.report.report_v, report_prefix)
+	
 	context = {
 		'appendix_sd': appendix_sd,
 		'cl_cleared_qtd': cl_cleared_qtd,
@@ -53,8 +61,8 @@ def get_template_context(report_prefix, merged_df, loan_df, tpl, images_path, ap
 		'cl_pulltoc_ratio_max': cl_pulltoc_ratio_max,
 		'cl_pulltoc_ratio_min': cl_pulltoc_ratio_min,
 		'cl_qtd' : cl_qtd,
-		'cl_report_num': cfg.app.report_n.report_3,
-		'cl_report_v': cfg.app.report_v,
+		'cl_report_num': report_n,
+		'cl_report_v': report_v,
 		'cl_report_m' : cl_report_m,
 		'cl_report_d' : cl_report_d,
 		'cl_report_yr' : cl_report_yr,

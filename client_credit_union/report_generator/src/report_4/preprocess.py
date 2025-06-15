@@ -1,5 +1,5 @@
 import pandas as pd
-from datetime import datetime
+from src.utils import parse_date
 
 def map_product_type(value):
   val = str(value).upper()
@@ -14,12 +14,6 @@ def map_product_type(value):
     return "Conventional"
   else:
     return "Other"
-  
-def parse_date(date_str):
-    try:
-      return datetime.strptime(date_str, "%m/%d/%Y")
-    except Exception:
-      return None
     
 def preprocess(loan_json_path):
 	df = pd.read_json(loan_json_path)

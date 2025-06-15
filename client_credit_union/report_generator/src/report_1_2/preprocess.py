@@ -40,7 +40,7 @@ def preprocess_json(loan_json_path):
     df["loan_officer"] = df["317"]
     df["status"] = df["folder"].str.extract(r'(Active|Closed)', expand=False)
     df["product_category"] = df["product_type"].apply(map_product_type)
-    df["branch"] = df["LoanTeamMember.Name.Branch Processor"]
+    df["branch"] = df["ORGID"]
     return df
 
 def map_product_type(value):

@@ -2,6 +2,7 @@ from docx import Document
 from docx.oxml.ns import qn
 import config as cfg
 
+
 def get_image_alt_texts(docx_path):
     """
     Extracts alt text from images within a .docx file.
@@ -29,11 +30,11 @@ def get_image_alt_texts(docx_path):
                     image_index += 1
     return image_alt_texts
 
-def get_report_paths(report_prefix):
+def get_report_paths(report_prefix, month_label, year_label):
     output_path = cfg.path.output / cfg.path.output_file.format(
         report_prefix=report_prefix,
-        month_label=cfg.app.month_label,
-        year_label=cfg.app.year_label
+        month_label=month_label,
+        year_label=year_label
     )
     doc_template_path = cfg.path.templates / cfg.path.doc_template_file.format(
         report_prefix=report_prefix
@@ -52,3 +53,15 @@ def get_report_paths(report_prefix):
         "loan_json_path": loan_json_path,
         "credit_excel_path": credit_excel_path
     }
+
+def check_loan_data_file(path):
+    if not path.exists():
+        raise FileExistsError(f"File does not exist: {path}")
+    else:
+        return True
+    
+def check_credit_data_file(path):
+    if not path.exists():
+        raise FileExistsError(f"File does not exist: {path}")
+    else:
+        return True

@@ -6,12 +6,18 @@ readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
     "docxtpl>=0.20.0",
+    "google-api-python-client>=2.172.0",
+    "google-auth-httplib2>=0.2.0",
+    "google-auth-oauthlib>=1.2.2",
     "matplotlib>=3.10.3",
     "numpy>=2.2.6",
     "openpyxl>=3.1.5",
     "pandas>=2.2.3",
+    "python-dotenv>=1.1.0",
     "pyyaml>=6.0.2",
+    "requests>=2.32.4",
     "seaborn>=0.13.2",
+    "tdqm>=0.0.1",
     "typer>=0.16.0",
 ]
 

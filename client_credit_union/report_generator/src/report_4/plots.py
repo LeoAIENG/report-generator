@@ -162,7 +162,7 @@ def plot_avg_days_to_close(df, title_prefix, image_path, prefix, show_plots=Fals
   if show_plots:
     plt.show()
   if image_path and prefix:
-    plt.savefig(image_path / f"{prefix}_avg_days_to_close.png")
+    plt.savefig(image_path / f"{prefix}_avg_days_to_close.png", bbox_inches='tight')
   plt.close()
 
 def plot_loans_missing_submittal(df, title_prefix, image_path, prefix, show_plots=False):
