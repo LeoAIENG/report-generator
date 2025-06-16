@@ -1,0 +1,9 @@
+show_appendix: true
+all_reports: false
+data_retrieve: false
+secrets:
+  encompass:
+    username: "username"
+    password: "password"
+    client_id: "client_id"
+    client_secret: "client_secret"

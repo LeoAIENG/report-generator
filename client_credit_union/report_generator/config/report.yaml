@@ -1,0 +1,20 @@
+report_prefix: "report_{report_n}"
+report_n:
+  report_1: "1"
+  report_2: "2"
+  report_3: "3"
+  report_4: "4"
+  report_5: "5"
+status_label:
+  report_1: "Closed"
+  report_2: "Active"
+time_label: "{month_label} {year_label}"
+title_label:
+  report_1: "{time_label} {status_label}"
+  report_2: "Active"
+report_v:
+  report_1: "0.1"
+  report_2: "0.1"
+  report_3: "0.1"
+  report_4: "0.1"
+  report_5: "0.1"
