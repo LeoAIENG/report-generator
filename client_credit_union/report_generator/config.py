@@ -1,18 +1,19 @@
-from pathlib import Path
-import yaml
-from types import SimpleNamespace
 import os
+from pathlib import Path
+from types import SimpleNamespace
+
 import dotenv
+import yaml
 
 dotenv.load_dotenv()
 
-config_path = Path().cwd() / 'config'
+config_path = Path().cwd() / "config"
 
 
 def _convert_dict_to_namespace(_dict):
     if isinstance(_dict, dict):
         namespace = SimpleNamespace()
-        setattr(namespace, 'config', _dict)
+        setattr(namespace, "config", _dict)
         for key, value in _dict.items():
             if isinstance(value, dict):
                 setattr(namespace, key, _convert_dict_to_namespace(value))
@@ -21,9 +22,10 @@ def _convert_dict_to_namespace(_dict):
         return namespace
     return _dict
 
+
 def _set_paths(config):
     base_path = Path().cwd()
-    config.path.credentials = base_path /config.path.credentials_file
+    config.path.credentials = base_path / config.path.credentials_file
     config.path.data = base_path / config.path.data
     config.path.templates = config.path.data / config.path.templates
     config.path.input = config.path.data / config.path.input
@@ -31,8 +33,9 @@ def _set_paths(config):
     config.path.images = config.path.data / config.path.images
     config.path.loan_json = config.path.input / config.path.loan_json_file
     config.path.credit_excel = config.path.input / config.path.credit_excel_file
-    
+
     return config
+
 
 def _set_credentials(config):
     config.app.secrets.encompass.username = os.getenv("ENCOMPASS_USERNAME")
@@ -41,19 +44,19 @@ def _set_credentials(config):
     config.app.secrets.encompass.client_secret = os.getenv("ENCOMPASS_CLIENT_SECRET")
     return config
 
+
 def _set_globals(config):
     for key, value in config.__dict__.items():
         globals()[key] = value
 
+
 def load_config():
-    config = {
-        path.stem: yaml.safe_load(path.read_text())
-        for path in config_path.glob('*.yaml')
-    }
+    config = {path.stem: yaml.safe_load(path.read_text()) for path in config_path.glob("*.yaml")}
     config = _convert_dict_to_namespace(config)
     config = _set_paths(config)
     config = _set_credentials(config)
     _set_globals(config)
     return config
+
 
 config = load_config()

@@ -1,5 +1,6 @@
 from docx import Document
 from docx.oxml.ns import qn
+
 import config as cfg
 
 
@@ -21,20 +22,21 @@ def get_image_alt_texts(docx_path):
 
     for paragraph in document.paragraphs:
         for run in paragraph.runs:
-            for inline_shape in run._element.findall('.//' + qn('wp:anchor')) + run._element.findall('.//' + qn('wp:inline')):
-                docPr = inline_shape.find(qn('wp:docPr'))
+            for inline_shape in run._element.findall(
+                ".//" + qn("wp:anchor")
+            ) + run._element.findall(".//" + qn("wp:inline")):
+                docPr = inline_shape.find(qn("wp:docPr"))
                 if docPr is not None:
-                    alt_text_descr = docPr.get('descr')
+                    alt_text_descr = docPr.get("descr")
                     if alt_text_descr:
                         image_alt_texts[image_index] = alt_text_descr
                     image_index += 1
     return image_alt_texts
 
+
 def get_report_paths(report_prefix, month_label, year_label):
     output_path = cfg.path.output / cfg.path.output_file.format(
-        report_prefix=report_prefix,
-        month_label=month_label,
-        year_label=year_label
+        report_prefix=report_prefix, month_label=month_label, year_label=year_label
     )
     doc_template_path = cfg.path.templates / cfg.path.doc_template_file.format(
         report_prefix=report_prefix
@@ -51,15 +53,17 @@ def get_report_paths(report_prefix, month_label, year_label):
         "appendix_template_path": appendix_template_path,
         "images_path": images_path,
         "loan_json_path": loan_json_path,
-        "credit_excel_path": credit_excel_path
+        "credit_excel_path": credit_excel_path,
     }
+
 
 def check_loan_data_file(path):
     if not path.exists():
         raise FileExistsError(f"File does not exist: {path}")
     else:
         return True
-    
+
+
 def check_credit_data_file(path):
     if not path.exists():
         raise FileExistsError(f"File does not exist: {path}")

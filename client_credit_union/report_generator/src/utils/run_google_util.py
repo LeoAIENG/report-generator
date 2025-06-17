@@ -1,11 +1,11 @@
 from google_util import GoogleDriveConverter
 
 # Initialize the converter with your credentials file
-converter = GoogleDriveConverter('credentials.json')
+converter = GoogleDriveConverter("credentials.json")
 
 # Convert a DOCX file to PDF using its file ID
-input_path = 'data/output/report_1_May_2025.docx'
-output_path = 'data/output/report_1_May_2025.pdf'
+input_path = "data/output/report_1_May_2025.docx"
+output_path = "data/output/report_1_May_2025.pdf"
 output_path = converter.convert_local_docx_to_pdf(input_path, output_path)
 print(output_path)
 
